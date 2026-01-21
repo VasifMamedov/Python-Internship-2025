@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg border-bottom border-body data-bs-theme=dark" style="background-color: orange">
+{% from "macros.html" import create_navlink %}
 
-    <!-- Navbar content -->
+
+<nav class="navbar navbar-expand-lg border-bottom border-body data-bs-theme=dark" style="background-color: orange">
     <div class="container-md">
         <a class="navbar-brand" href="/">ZYRA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -16,8 +10,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                {{ create_navlink('index', 'Home') }}
+                {{ create_navlink('about', 'About') }}
             </ul>
             <div class="d-flex btn-group" role="search">
                 <a class="btn btn-success" href="/login">Login</a>
