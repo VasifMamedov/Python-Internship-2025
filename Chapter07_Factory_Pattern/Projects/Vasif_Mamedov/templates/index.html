@@ -3,6 +3,9 @@
 {% block content %}
 
 <div class="container-md bg-white py-1 shadow-lg rounded-4">
+    {% for user in users %}
+        <p>{{ user }}</p>
+    {% endfor %}
     <div id="carouselExampleIndicators" class="carousel slide m-3" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"

@@ -16,19 +16,14 @@ products = [
     {"id":9, "name":"iphone17", "price":200, "img":"/static/iphone17.jpg" },
 ]
 
-users=[]
-
 @app.route('/')
 def index():
-    return render_template("index.html", users=users, product_list=products)
+    return render_template("index.html", product_list=products)
 @app.route('/register', methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-            users.append(
-                {"username": form.username.data,
-                 "password": form.password.data,}
-            )
+        print("user registered")
     else:
         print("Something went wrong")
     return render_template("register.html", form=form)
