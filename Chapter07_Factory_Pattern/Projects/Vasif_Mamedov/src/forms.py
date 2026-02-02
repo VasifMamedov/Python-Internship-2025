@@ -12,10 +12,5 @@ class RegisterForm(FlaskForm):
     profile_image = FileField("upload image", validators = [FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     submit = SubmitField('Register')
 
-class ProductForm(FlaskForm):
-    name = StringField("Product Name")
-    price = FloatField("Product Price")
-    img = FileField("Product Image", validators= [FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
 
-    submit = SubmitField('Save')
 

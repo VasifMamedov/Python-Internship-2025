@@ -1,32 +1,53 @@
-from app import db, Product, app, Person, IDCard, Student, University, Movie, Actor, ActorMovie
+from flask.cli import with_appcontext
 from datetime import datetime
+import click
+
+
+from src.models import Product, IDCard, Person, University, Student, Actor, Movie, ActorMovie
+from src.ext import db
+
+
 products = [
     {"id":0, "name":"s25", "price":100, "img":"s25.jpg" },
     {"id":1, "name":"iphone17", "price":200, "img":"iphone17.jpg" },
 ]
 
-with app.app_context():
+@click.command("init_db")
+@with_appcontext
+
+def init_db():
+
+    click.echo("initializing dataBase")
+
     db.drop_all()
     db.create_all()
 
+    click.echo("DataBase Created")
+
+
+
+
+@click.command("populate_db")
+@with_appcontext
+def populate_db():
+    click.echo("Populating Database")
     for product in products:
         new_product = Product(name=product["name"], price=product["price"], img=product["img"])
-        db.session.add(new_product)
+        new_product.create(commit = False)
+
     db.session.commit()
+
 
     ### ONE TO ONE ###
     id_card = IDCard(personal_number="0102030405", serial_number="pjazdi23", expiration_date= datetime.now())
-    db.session.add(id_card)
-    db.session.commit()
+    id_card.create()
 
     person = Person(name="Nodo", surname= "Dora", birth_date = datetime.now() ,idcard_id=id_card.id)
-    db.session.add(person)
-    db.session.commit()
+    person.create()
 
     ### ONE TO MANY ###
     university = University(name = "Ilias State University", address = "Vake")
-    db.session.add(university)
-    db.session.commit()
+    university.create()
 
     university2 = University(name = "Javaxishvili State University", address = "Vake")
     db.session.add(university2)
@@ -55,3 +76,5 @@ with app.app_context():
     actormovie4 = ActorMovie(actor_id=actor2.id, movie_id=movie3.id)
     db.session.add_all([actormovie, actormovie2, actormovie3, actormovie4])
     db.session.commit()
+
+    click.echo("DB Populated")
